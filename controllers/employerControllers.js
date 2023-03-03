@@ -87,8 +87,8 @@ const addJobForm = async (req, res) => {
             status: status,
         });
         await jobdata.save().then(() => {
-            res.status(200).json({jobdata})
-        }).catch((error)=>{
+            res.status(200).json({ jobdata })
+        }).catch((error) => {
             console.log(error);
         })
     } catch (error) {
@@ -103,22 +103,44 @@ const employerProfile = async (req, res) => {
         const token = req.headers.token
         const decoded = jwt_decode(token);
         let userData = decoded.UserInfo;
-        let data = await employerModel.aggregate([
-            {
-                $match: {
-                    email: userData.email
+        let { role, id } = req.body
+        console.log(userData ,req.body);
+        if (role == "employer") {
+            let data = await employerModel.aggregate([
+                {
+                    $match: {
+                        email: userData.email
+                    }
+                }, {
+                    $lookup: {
+                        from: 'jobs',
+                        localField: '_id',
+                        foreignField: 'id',
+                        as: 'job'
+                    }
                 }
-            }, {
-                $lookup: {
-                    from: 'jobs',
-                    localField: '_id',
-                    foreignField: 'id',
-                    as: 'job'
+            ]);
+            console.log(data);
+            res.json({ data });
+        } else {
+            let data = await employerModel.aggregate([
+                {
+                    $match: {
+                        _id: id
+                    }
+                }, {
+                    $lookup: {
+                        from: 'jobs',
+                        localField: '_id',
+                        foreignField: 'id',
+                        as: 'job'
+                    }
                 }
-            }
-        ]);
-        console.log("data", data[0].email);
-        res.json({ data });
+            ]);
+            console.log(data);
+            res.json({ data });
+        }
+        
     } catch (error) {
         console.log(error);
     }
@@ -171,23 +193,23 @@ const editJob = async (req, res) => {
                 duration: duration,
             }
         }).then(res.json({ status: true }))
-        .catch((error)=>{
-            console.log(error);
-        })
+            .catch((error) => {
+                console.log(error);
+            })
     } catch (error) {
         console.log(error);
     }
 }
 exports.editJob = editJob;
 
-const jobDelete = async(req,res)=> {
-    try{
+const jobDelete = async (req, res) => {
+    try {
 
         let { id } = req.body;
-        console.log("id",req.body);
+        console.log("id", req.body);
         const data = await jobModel.findByIdAndDelete(id);
-        res.send({statue:true})
-    }catch(error){
+        res.send({ statue: true })
+    } catch (error) {
         console.log(error);
     }
 
