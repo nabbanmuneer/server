@@ -43,6 +43,8 @@ const otpVerify = async (req, res) => {
             const data = new employeeModel({ phoneNo: phoneNo, userName: userName, email: email, password: password, position: position });
             await data.save();
             return res.json({ status: true })
+        }else{
+            console.log("error");
         }
     } catch (error) {
         res.json({ status: false })
@@ -85,7 +87,9 @@ const bidPost = async (req, res) => {
             }
         }, { new: true }).then(
             res.json({ status: true })
-        )
+        ).catch((error)=>{
+            console.log(error);
+        })
     } catch (error) {
         res.json({ status: false });
     }

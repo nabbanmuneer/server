@@ -88,6 +88,8 @@ const addJobForm = async (req, res) => {
         });
         await jobdata.save().then(() => {
             res.status(200).json({jobdata})
+        }).catch((error)=>{
+            console.log(error);
         })
     } catch (error) {
         console.log(error);
@@ -169,7 +171,9 @@ const editJob = async (req, res) => {
                 duration: duration,
             }
         }).then(res.json({ status: true }))
-
+        .catch((error)=>{
+            console.log(error);
+        })
     } catch (error) {
         console.log(error);
     }
