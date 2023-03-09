@@ -22,6 +22,7 @@ const employeeRegister = async (req, res) => {
 
     } catch (error) {
         res.json({ status: false });
+        console.log(error);
     }
 }
 exports.employeeRegister = employeeRegister
@@ -29,7 +30,6 @@ exports.employeeRegister = employeeRegister
 
 const otpVerify = async (req, res) => {
     try {
-        console.log("data", req.body);
         let { phoneNo, otp } = req.body
         mobile = Number(phoneNo);
         const verification_check = await client.verify.v2

@@ -5,9 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const handleLogin = async (req, res) => {
   const cookies = req.cookies;
-  console.log(cookies,"handle login");
   const { email, password } = req.body;
-  console.log("auth", req.body);
   if (!email || !password) {
     return res.status(400).json({ 'message': 'Username and password are required.' });
   }

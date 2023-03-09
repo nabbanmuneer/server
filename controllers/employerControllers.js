@@ -15,7 +15,6 @@ const employerRegister = async (req, res) => {
         let employeeVerify = employeeModel.findOne({ email: email });
         if (employeeVerify && employerVerify) {
             const response = await smsOtp(email);
-            console.log("status in email", response.status);
             if (response.status == true) {
                 res.json({ status: true })
             } else {
@@ -104,7 +103,6 @@ const employerProfile = async (req, res) => {
         const decoded = jwt_decode(token);
         let userData = decoded.UserInfo;
         let { role, id } = req.body
-        console.log(userData ,req.body);
         if (role == "employer") {
             let data = await employerModel.aggregate([
                 {
@@ -120,7 +118,6 @@ const employerProfile = async (req, res) => {
                     }
                 }
             ]);
-            console.log(data);
             res.json({ data });
         } else {
             let data = await employerModel.aggregate([
@@ -137,10 +134,9 @@ const employerProfile = async (req, res) => {
                     }
                 }
             ]);
-            console.log(data);
             res.json({ data });
         }
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -206,7 +202,6 @@ const jobDelete = async (req, res) => {
     try {
 
         let { id } = req.body;
-        console.log("id", req.body);
         const data = await jobModel.findByIdAndDelete(id);
         res.send({ statue: true })
     } catch (error) {
@@ -215,3 +210,16 @@ const jobDelete = async (req, res) => {
 
 }
 exports.jobDelete = jobDelete;
+
+
+const selected = async (req, res) => {
+    try {
+        let {jobId,userId} = req.body;
+        await jobModel.findByIdAndUpdate(jobId,{
+            
+        })
+    } catch (error) {
+        console.log(error);
+    }
+}
+exports.selected = selected

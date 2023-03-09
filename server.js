@@ -41,9 +41,9 @@ app.all('*', (req, res) => {
 });
 
 
-mongoose.connect(process.env.CONNECTDB).then(()=>{
-    mongoose.set('strictQuery', false);
-    app.listen(process.env.PORT,()=>{
-        console.log("listing port 3000")
+    mongoose.connect(process.env.CONNECTDB).then(()=>{
+        mongoose.set('strictQuery', false);
+        app.listen(process.env.PORT,()=>{
+            console.log("listing port 3000")
+        });
     });
-});
