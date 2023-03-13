@@ -19,4 +19,6 @@ router.post('/editJob',employerControllers.editJob)
 
 router.post('/jobData/delete',employerControllers.jobDelete)
 
+router.post('/selected',employerControllers.selected)
+
 module.exports = router;

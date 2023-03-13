@@ -13,7 +13,6 @@ const handleLogin = async (req, res) => {
 
   const employee = await employeeModel.findOne({ email: email }).exec();
   const employer = await employerModel.findOne({ email: email }).exec();
-  console.log("data emple", employee , "data emlor",employer);
   if(employee){
     foundUser = employee;
   }else if(employer){
@@ -78,7 +77,6 @@ const handleLogin = async (req, res) => {
     res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
     res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
     // Send authorization roles and access token to userName
-    console.log("last",accessToken, foundUser);
     res.json({ accessToken, foundUser });
 
   } else {
@@ -87,7 +85,6 @@ const handleLogin = async (req, res) => {
 };
 
 const refreshToken = async (req, res) => {
-  console.log("hello");
   const cookies = req.cookies;
   if (!cookies?.jwt) return res.sendStatus(401);
   const refreshToken = cookies.jwt;

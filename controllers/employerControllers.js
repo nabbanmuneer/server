@@ -161,7 +161,7 @@ const jobData = async (req, res) => {
         }]);
         res.json({ jobsData, job })
     } catch (error) {
-        // res.json({status : false })
+        res.json({status : false })
         console.log(error);
     }
 }
@@ -214,10 +214,16 @@ exports.jobDelete = jobDelete;
 
 const selected = async (req, res) => {
     try {
-        let {jobId,userId} = req.body;
+        let {jobId,userId,amount} = req.body;
         await jobModel.findByIdAndUpdate(jobId,{
-            
-        })
+            $push:{
+            selected:{ 
+                amount:amount,
+                userId:userId
+                }
+            }
+        });
+        res.json({status : true });
     } catch (error) {
         console.log(error);
     }
