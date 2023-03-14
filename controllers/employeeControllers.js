@@ -108,7 +108,12 @@ const employeeProfile = async (req, res) => {
                 "bid.userId": user._id
             }
         }]);
-        const data = { user, job };
+        const select = await jobModel.aggregate([{
+            "$match": {
+                "selected.userId": user._id
+            }
+        }]);
+        const data = { user, job,select };
         res.json({ data });
     } catch (error) {
         console.log(error);
