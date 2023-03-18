@@ -19,7 +19,6 @@ const employeeRegister = async (req, res) => {
         } else {
             res.json({ status: false });
         }
-
     } catch (error) {
         res.json({ status: false });
         console.log(error);

@@ -150,7 +150,6 @@ const jobData = async (req, res) => {
         id = mongoose.Types.ObjectId(id)
         userId = mongoose.Types.ObjectId(userId)
         const jobsData = await jobModel.findById(id);
-
         const job = await jobModel.aggregate([{
             $unwind: "$bid"
         },

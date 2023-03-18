@@ -73,7 +73,7 @@ const searchData = async (req, res) => {
         const jobData = await jobModel.find();
         let result = { employeeData, employerData, jobData }
         const data = {...result}
-        // res.send({ data })
+        res.send({ data })
     } catch (error) {
         console.log(error);
     }
