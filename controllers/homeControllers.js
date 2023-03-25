@@ -29,7 +29,7 @@ const homeData = async (req, res) => {
     try {
         const data1 = await jobModel.aggregate([{
             $match: {
-                jobType: "fullTime"
+                jobType: "full Time"
             }
         }, {
             $group: {
@@ -38,7 +38,7 @@ const homeData = async (req, res) => {
         }])
         const data2 = await jobModel.aggregate([{
             $match: {
-                jobType: "partTime"
+                jobType: "part Time"
             }
         }, {
             $group: {
