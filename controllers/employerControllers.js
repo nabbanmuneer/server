@@ -21,7 +21,7 @@ const employerRegister = async (req, res) => {
                 res.json({ status: false })
             }
         } else {
-            console.log("Error");
+            res.json({ status: false })
         }
     } catch (error) {
         res.json({ status: false });
@@ -63,7 +63,7 @@ const update = async (req, res) => {
         })
         res.json({ data })
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.update = update
@@ -88,11 +88,10 @@ const addJobForm = async (req, res) => {
         await jobdata.save().then(() => {
             res.status(200).json({ jobdata })
         }).catch((error) => {
-            console.log(error);
+            res.sendStatus(404);;
         })
     } catch (error) {
-        console.log(error);
-        res.sendStatus(400)
+        res.sendStatus(404);
     }
 }
 exports.addJobForm = addJobForm
@@ -101,7 +100,7 @@ const employerProfile = async (req, res) => {
     try {
         const token = req.headers.token
         const decoded = jwt_decode(token);
-        let userData = decoded.UserInfo;
+        const userData = decoded.UserInfo;
         let { role, id } = req.body
         if (role == "employer") {
             let data = await employerModel.aggregate([
@@ -138,7 +137,7 @@ const employerProfile = async (req, res) => {
         }
 
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.employerProfile = employerProfile
@@ -161,7 +160,6 @@ const jobData = async (req, res) => {
         res.json({ jobsData, job })
     } catch (error) {
         res.json({status : false })
-        console.log(error);
     }
 }
 exports.jobData = jobData
@@ -189,10 +187,10 @@ const editJob = async (req, res) => {
             }
         }).then(res.json({ status: true }))
             .catch((error) => {
-                console.log(error);
+                res.sendStatus(404);
             })
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.editJob = editJob;
@@ -204,7 +202,7 @@ const jobDelete = async (req, res) => {
         const data = await jobModel.findByIdAndDelete(id);
         res.send({ statue: true })
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 
 }
@@ -224,7 +222,7 @@ const selected = async (req, res) => {
         });
         res.json({status : true });
     } catch (error) {
-        console.log(error);
+        cres.sendStatus(404);
     }
 }
 exports.selected = selected

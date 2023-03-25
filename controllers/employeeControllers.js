@@ -21,7 +21,6 @@ const employeeRegister = async (req, res) => {
         }
     } catch (error) {
         res.json({ status: false });
-        console.log(error);
     }
 }
 exports.employeeRegister = employeeRegister
@@ -43,7 +42,7 @@ const otpVerify = async (req, res) => {
             await data.save();
             return res.json({ status: true })
         }else{
-            console.log("error");
+            res.json({ status: false })
         }
     } catch (error) {
         res.json({ status: false })
@@ -66,7 +65,7 @@ const employeeUpdate = async (req, res) => {
             }
         }, { new: true })
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.employeeUpdate = employeeUpdate;
@@ -87,7 +86,7 @@ const bidPost = async (req, res) => {
         }, { new: true }).then(
             res.json({ status: true })
         ).catch((error)=>{
-            console.log(error);
+            res.json({ status: false });
         })
     } catch (error) {
         res.json({ status: false });
@@ -115,7 +114,7 @@ const employeeProfile = async (req, res) => {
         const data = { user, job,select };
         res.json({ data });
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.employeeProfile = employeeProfile
@@ -125,7 +124,7 @@ const jobsData = async (req,res)=>{
         const data = await jobModel.find();
         res.send({data});
     }catch(error){
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.jobsData = jobsData

@@ -20,7 +20,7 @@ const dataGet = async (req, res) => {
             res.json({ data });
         }
     } catch (error) {
-        res.json({ status: "404" })
+        res.sendStatus(404);
     }
 }
 exports.dataGet = dataGet;
@@ -61,7 +61,7 @@ const filterJob = async (req, res) => {
             res.json({ data: data })
         }
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.filterJob = filterJob
@@ -75,7 +75,7 @@ const searchData = async (req, res) => {
         const data = {...result}
         res.send({ data })
     } catch (error) {
-        console.log(error);
+        res.sendStatus(404);
     }
 }
 exports.searchData = searchData ;

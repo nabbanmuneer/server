@@ -5,7 +5,7 @@ const dotenv = require("dotenv");
 const otpModel = require("../models/otpModel");
 dotenv.config();
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host: process.env.NODEMAILER_HOST,
   port: process.env.NODEMAILER_PORT,
   secure: true,
