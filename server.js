@@ -28,6 +28,9 @@ app.use('/auth', require('./routers/auth'));
 app.use('/refresh', require('./routers/refresh'));
 app.use('/logout', require('./routers/logout'));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Headers","*")
+  })
 
 app.all('*', (req, res) => {
     res.status(404);

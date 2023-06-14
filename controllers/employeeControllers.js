@@ -63,7 +63,8 @@ const employeeUpdate = async (req, res) => {
                 profilePic: profilePic
 
             }
-        }, { new: true })
+        }, { new: true });
+        res.sendStatus(200);
     } catch (error) {
         res.sendStatus(404);
     }
