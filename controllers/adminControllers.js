@@ -31,7 +31,7 @@ const adminData = async (req, res) => {
         const employer = await employerModel.find({})
         const employerCount = await employerModel.find({}).count();
         const job = await jobModel.find({});
-        const jobCount = await jobModel.find({}).count 
+        const jobCount = await jobModel.find({}).count(); 
         res.status(201).json({ employee,employeeCount,employer,employerCount,job,jobCount })
     } catch (error) {
         res.sendStatus(404);
