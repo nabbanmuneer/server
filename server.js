@@ -6,9 +6,11 @@ const cors = require('cors');
 const path = require('path')
 const corsOptions = require("./config/corsOption");
 const employeeRoute = require('./routers/employeeRoute');
-const employerRoute=require('./routers/employerRoute')
-const credentials =require('./middlewares/credentials')
-const homeRoute = require('./routers/homeRoute')
+const employerRoute=require('./routers/employerRoute');
+const credentials =require('./middlewares/credentials');
+const homeRoute = require('./routers/homeRoute');
+const adminRoute = require('./routers/adminRoute');
+
 const cookieParser = require("cookie-parser");
 
 const app=express();
@@ -18,10 +20,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(credentials);
 app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(express.json());
 app.use("/employee",employeeRoute);
 app.use("/employer",employerRoute);
 app.use("/home",homeRoute);
-app.use(express.json());
+app.use('/admin',adminRoute);
 app.use('/', express.static(path.join(__dirname, '/public')));
 app.use('/', require('./routers/roots'));
 app.use('/auth', require('./routers/auth'));

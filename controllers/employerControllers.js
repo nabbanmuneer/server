@@ -16,7 +16,7 @@ const employerRegister = async (req, res) => {
         if (employeeVerify && employerVerify) {
             const response = await smsOtp(email);
             if (response.status == true) {
-                res.json({ status: true })
+                res.status(200).json({ status: true })
             } else {
                 res.json({ status: false })
             }
@@ -39,9 +39,9 @@ const otpVerify = async (req, res) => {
             password = await bcrypt.hash(password, salt);
             const data = new employerModel({ userName: userName, phoneNo: phoneNo, email: email, password: password, position: position });
             await data.save()
-            res.json({ status: true })
+            res.status(200);
         } else {
-            res.json({ status: false })
+            res.status(400)
         }
     } catch (error) {
         res.json({ status: false })
@@ -61,7 +61,7 @@ const update = async (req, res) => {
                 logoUrl: logoUrl
             }
         })
-        res.json({ data })
+        res.status(200).json({ data })
     } catch (error) {
         res.sendStatus(404);
     }
@@ -133,7 +133,7 @@ const employerProfile = async (req, res) => {
                     }
                 }
             ]);
-            res.json({ data });
+            res.status(200).json({ data });
         }
 
     } catch (error) {
@@ -157,7 +157,7 @@ const jobData = async (req, res) => {
                 "_id": id
             }
         }]);
-        res.json({ jobsData, job })
+        res.status(200).json({ jobsData, job })
     } catch (error) {
         res.json({status : false })
     }
@@ -185,7 +185,7 @@ const editJob = async (req, res) => {
                 decrption: decrption,
                 duration: duration,
             }
-        }).then(res.json({ status: true }))
+        }).then(res.status(200).json({ status: true }))
             .catch((error) => {
                 res.sendStatus(404);
             })
@@ -200,7 +200,7 @@ const jobDelete = async (req, res) => {
 
         let { id } = req.body;
         const data = await jobModel.findByIdAndDelete(id);
-        res.send({ statue: true })
+        res.status(200).send({ statue: true })
     } catch (error) {
         res.sendStatus(404);
     }
@@ -222,7 +222,7 @@ const selected = async (req, res) => {
         });
         res.json({status : true });
     } catch (error) {
-        cres.sendStatus(404);
+        res.sendStatus(404);
     }
 }
 exports.selected = selected

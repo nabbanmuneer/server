@@ -15,7 +15,7 @@ const employeeRegister = async (req, res) => {
             await client.verify.v2
                 .services(TWILIO_SERVICE_SID)
                 .verifications.create({ to: `+91${phoneNo}`, channel: 'sms' });
-            res.json({ status: true });
+            res.status(200).json({ status: true });
         } else {
             res.json({ status: false });
         }
@@ -40,7 +40,7 @@ const otpVerify = async (req, res) => {
             password = await bcrypt.hash(password, salt);
             const data = new employeeModel({ phoneNo: phoneNo, userName: userName, email: email, password: password, position: position });
             await data.save();
-            return res.json({ status: true })
+            return res.status(200).json({ status: true })
         }else{
             res.json({ status: false })
         }
@@ -85,7 +85,7 @@ const bidPost = async (req, res) => {
                 }
             }
         }, { new: true }).then(
-            res.json({ status: true })
+            res.status(200).json({ status: true })
         ).catch((error)=>{
             res.json({ status: false });
         })
@@ -113,7 +113,7 @@ const employeeProfile = async (req, res) => {
             }
         }]);
         const data = { user, job,select };
-        res.json({ data });
+        res.status(200).json({ data });
     } catch (error) {
         res.sendStatus(404);
     }
@@ -123,7 +123,7 @@ exports.employeeProfile = employeeProfile
 const jobsData = async (req,res)=>{
     try{
         const data = await jobModel.find();
-        res.send({data});
+        res.status(200).send({data});
     }catch(error){
         res.sendStatus(404);
     }
