@@ -133,6 +133,7 @@ const employerProfile = async (req, res) => {
                     }
                 }
             ]);
+            console.log(data);
             res.status(200).json({ data });
         }
 

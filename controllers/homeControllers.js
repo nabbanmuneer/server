@@ -19,6 +19,7 @@ const dataGet = async (req, res) => {
             let data = await employerModel.findOne({ email: userData.email });
             res.json({ data });
         }
+        console.log(data);
     } catch (error) {
         res.sendStatus(404);
     }
